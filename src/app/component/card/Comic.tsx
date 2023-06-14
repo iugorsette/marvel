@@ -4,10 +4,12 @@ export function CardComic(comic: IComic) {
   return (
     <div key={comic.id} className="bg-zinc-900 rounded-lg shadow-md flex">
       <div className="w-48 h-48 relative">
-        <div className="">
+        <div>
           <Image
             src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
             alt={comic.title}
+            width={1048}
+            height={1048}
           />
         </div>
       </div>
