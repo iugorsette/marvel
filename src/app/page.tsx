@@ -1,8 +1,8 @@
 'use client'
-import { MarvelCharacters } from "./component/Marvel";
+import { Navbar } from "./component/Navbar";
 
 export default function Home() {
   return (
-   <MarvelCharacters />
+   <Navbar />
   )
 }
