@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { MarvelCharacters } from "./MarvelCharacter";
 import { MarvelComics } from "./MarvelComics";
+import { Cart } from "./Cart"; // Importe o componente Cart
 
 export function Navbar() {
   const [activeTab, setActiveTab] = useState("comics");
 
-  const handleTabChange = (tab: string) => {
+  const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
@@ -29,10 +30,24 @@ export function Navbar() {
           >
             Character
           </li>
+          <li
+            className={`text-white cursor-pointer rounded-2xl py-2 px-3 ${
+              activeTab === "cart" ? "bg-zinc-200 text-zinc-900" : "hover:bg-red-500"
+            }`}
+            onClick={() => handleTabChange("cart")}
+          >
+            Cart
+          </li>
         </ul>
       </nav>
 
-      {activeTab === "comics" ? <MarvelComics /> : <MarvelCharacters />}
+      {activeTab === "comics" ? (
+        <MarvelComics cardPerPage={30} offset={60} />
+      ) : activeTab === "character" ? (
+        <MarvelCharacters />
+      ) : (
+        <Cart />
+      )}
     </>
   );
 }

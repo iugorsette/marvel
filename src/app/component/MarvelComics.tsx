@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Comics } from "../services/comics";
-import Image from "next/image";
 import { CardComic } from "./card/Comic";
 
-export const MarvelComics: React.FC = () => {
-  const comics: IComic[] = Comics();
+export const MarvelComics: React.FC<{
+  cardPerPage: number;
+  offset: number;
+}> = ({ cardPerPage, offset }) => {
+  const comics: IComic[] = Comics(cardPerPage, offset);
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {

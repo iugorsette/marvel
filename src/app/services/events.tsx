@@ -12,7 +12,7 @@ export const Events = () => {
         const privateKey = 'd566366ff7e77a690341d0ed8ad3e459009b5c83'
         const timestamp = new Date().getTime().toString();
         const hash = MD5(timestamp + privateKey + publicKey);
-        const url = `https://gateway.marvel.com/v1/public/events?apikey=${publicKey}&ts=${timestamp}&hash=${hash}`;
+        const url = `https://gateway.marvel.com/v1/public/events?apikey=${publicKey}&ts=${timestamp}&hash=${hash}&limit=10&orderBy=-startDate`;
 
         const response = await fetch(url);
         const data = await response.json();       
