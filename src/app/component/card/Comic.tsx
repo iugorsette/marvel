@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export function CardComic(comic: IComic) {
   const [cart, setCart] = useState(new Set());
@@ -11,13 +12,13 @@ export function CardComic(comic: IComic) {
     const hasComic = comicSaves.some((comicSave:any) => comicSave.id === comic.id);
 
     if (hasComic) {
-      //   toast.warn("Este filme ja foi salvo")
+      toast.info("This comic is already in the cart!")
       return;
     }
 
     comicSaves.push(comic);
     localStorage.setItem("cart", JSON.stringify(comicSaves));
-    //toast.success("filme salvo com sucesso!")
+    toast.success("Comic successfully added to cart!")
   };
 
   const [isTruncated, setIsTruncated] = useState(true);

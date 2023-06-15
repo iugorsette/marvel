@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useComicById } from "../services/comics";
 import { CardPayment } from "./card/CardPayment";
+import { toast } from "react-toastify";
 
 export function Cart() {
   const [comics, setComics] = useState([]);
@@ -31,7 +31,7 @@ export function Cart() {
 
     setComics(cartComicList);
     localStorage.setItem("cart", JSON.stringify(cartComicList));
-    // toast.success("Filme removido com sucesso!");
+    toast.success("Comic was removed to cart!");
   };
 
   useEffect(() => {
