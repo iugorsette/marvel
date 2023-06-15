@@ -12,4 +12,5 @@ interface IComic {
     extension: string;
   }>;
   prices: any[];
+  quantity: number;
 }

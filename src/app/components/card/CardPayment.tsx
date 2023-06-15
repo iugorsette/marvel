@@ -4,45 +4,62 @@ import Image from "next/image";
 export function CardPayment({
   comic,
   onRemove,
+  quantity,
+  onQuantityChange,
 }: {
   comic: IComic;
   onRemove: () => void;
+  quantity: number;
+  onQuantityChange: (quantity: number) => void;
 }) {
-  const [cart, setCart] = useState(new Map<number, number>());
-  const [quantity, setQuantity] = useState(1);
-
   const handleRemoveFromCart = () => {
-    const updatedCart = new Map(cart);
-    updatedCart.delete(comic.id);
-
-    localStorage.setItem("cart", JSON.stringify(Array.from(updatedCart)));
-    setCart(updatedCart);
     onRemove();
   };
 
   const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
+    const comicList: any = localStorage.getItem("cart");
+    let comicSaves = JSON.parse(comicList) || [];
+
+    const hasComic = comicSaves.some(
+      (comicSave: any) => comicSave.id === comic.id
+    );
+
+    if (hasComic) {
+      comic.quantity += 1;
+      onQuantityChange(comic.quantity);
+    }
+    
   };
 
   const handleDecreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      const comicList: any = localStorage.getItem("cart");
+      let comicSaves = JSON.parse(comicList) || [];
+  
+      const hasComic = comicSaves.some(
+        (comicSave: any) => comicSave.id === comic.id
+      );
+  
+      if (hasComic) {
+        comic.quantity -= 1;
+        onQuantityChange(comic.quantity);
+      }
     }
   };
 
   const price = comic.prices[0].price;
-  const totalPrice = price * quantity;
+  const totalPrice = price * comic.quantity;
   const formattedTotalPrice = totalPrice.toFixed(2);
 
   return (
     <div key={comic.id} className="bg-zinc-200 rounded-lg shadow-md flex h-48 w-full my-2 ">
       <div className="">
         <Image
-          className="rounded-l-md object-fill"
+          className=" p-2"
           src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
           alt={comic.title}
-          width={120}
-          height={120}
+          width={168}
+          height={168}
         />
       </div>
       <div className="flex flex-col justify-between px-4 py-2 w-full">
@@ -66,7 +83,7 @@ export function CardPayment({
             >
               -
             </button>
-            <p className="text-gray-900 mx-2">{quantity}</p>
+            <p className="text-gray-900 mx-2">{comic.quantity}</p>
             <button
               className="w-8 h-8 rounded-full text-gray-900 bg-gray-200 flex justify-center items-center"
               onClick={handleIncreaseQuantity}

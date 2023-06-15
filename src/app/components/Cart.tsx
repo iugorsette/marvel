@@ -3,7 +3,7 @@ import { CardPayment } from "./card/CardPayment";
 import { toast } from "react-toastify";
 
 export function Cart() {
-  const [comics, setComics] = useState([]);
+  const [comics, setComics] = useState<IComic[]>([]);
   const [quantity, setQuantity] = useState(1);
 
   const totalItems = comics.length;
@@ -11,15 +11,15 @@ export function Cart() {
   const calculateTotalValue = () => {
     let total = 0;
     comics.forEach((comic) => {
-      total += comic.prices[0].price * quantity;
+      total += comic.prices[0].price * comic.quantity;
     });
     return total.toFixed(2);
   };
 
-  const handleQuantityChange = (id: number, quantity: number) => {
+  const handleQuantityChange = (id: number, newQuantity: number) => {
     setComics((prevComics) =>
       prevComics.map((comic) =>
-        comic.id === id ? { ...comic, quantity } : comic
+        comic.id === id ? { ...comic, quantity: newQuantity } : comic
       )
     );
   };
@@ -42,7 +42,7 @@ export function Cart() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-zinc-800 to-zinc-700 p-4" >
+    <div className="bg-gradient-to-b from-zinc-800 to-zinc-700 p-4">
       <h1 className="text-center text-3xl text-red-700 font-bold mb-8">
         Cart ({totalItems} items)
       </h1>
@@ -50,19 +50,18 @@ export function Cart() {
         <div className="bg-zinc-800 rounded-lg p-4 shadow-md">
           {comics.length > 0 ? (
             <>
-              {comics.map((comic) => {
-                return (
-                  <CardPayment
-                    key={comic.id}
-                    comic={comic}
-                    quantity={quantity}
-                    onQuantityChange={(quantity: number) =>
-                      handleQuantityChange(comic.id, quantity)
-                    }
-                    onRemove={() => handleRemoveComic(comic.id)}
-                  />
-                );
-              })}
+              {comics.map((comic) => (
+                <CardPayment
+                  key={comic.id}
+                  comic={comic}
+                  quantity={comic.quantity}
+                  onQuantityChange={(newQuantity: number) =>
+                    handleQuantityChange(comic.id, newQuantity)
+                  }
+                  onRemove={() => handleRemoveComic(comic.id)}
+                />
+              ))}
+
               <p className="text-zinc-100 text-right text-2xl font-bold mt-4">
                 Cart Total $:{calculateTotalValue()}
               </p>
@@ -71,7 +70,11 @@ export function Cart() {
               </button>
             </>
           ) : (
-            <p>Loading...</p>
+            <div>
+              <p className="text-zinc-100 text-center text-2xl font-bold">
+                No items in cart
+              </p>
+            </div>
           )}
         </div>
       </div>

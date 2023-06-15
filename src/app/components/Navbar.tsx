@@ -20,8 +20,8 @@ export function Navbar() {
   ];
 
   const generateTabClass = (tabId: any) =>
-    ` text-zinc-200 cursor-pointer rounded-2xl py-2 px-3  shadow-lg ${
-      activeTab === tabId ? "bg-zinc-900 text-zinc-200 " : "hover:bg-red-500"
+    ` text-zinc-200 cursor-pointer rounded-lg py-2 px-3  shadow-lg ${
+      activeTab === tabId ? "bg-zinc-900 text-zinc-200 " : "hover:bg-red-800"
     }`;
 
   return (

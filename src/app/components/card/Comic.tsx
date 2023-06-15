@@ -9,16 +9,21 @@ export function CardComic(comic: IComic) {
     const comicList: any = localStorage.getItem("cart");
     let comicSaves = JSON.parse(comicList) || [];
 
-    const hasComic = comicSaves.some((comicSave:any) => comicSave.id === comic.id);
+    const hasComic = comicSaves.some(
+      (comicSave: any) => comicSave.id === comic.id
+    );
 
     if (hasComic) {
-      toast.info("This comic is already in the cart!")
+      toast.info("This comic is already in the cart!");
       return;
     }
-
-    comicSaves.push(comic);
+    const quad = new Object({
+      ...comic,
+      quantity: 1,
+    });
+    comicSaves.push(quad);
     localStorage.setItem("cart", JSON.stringify(comicSaves));
-    toast.success("Comic successfully added to cart!")
+    toast.success("Comic successfully added to cart!");
   };
 
   const [isTruncated, setIsTruncated] = useState(true);
