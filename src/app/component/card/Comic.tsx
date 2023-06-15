@@ -5,11 +5,19 @@ export function CardComic(comic: IComic) {
   const [cart, setCart] = useState(new Set());
 
   const handleAddToCart = () => {
-    const updatedCart = new Set(cart);
-    updatedCart.add(comic.id); 
+    const comicList: any = localStorage.getItem("cart");
+    let comicSaves = JSON.parse(comicList) || [];
 
-    localStorage.setItem("cart", JSON.stringify(Array.from(updatedCart))); 
-    setCart(updatedCart);
+    const hasComic = comicSaves.some((comicSave:any) => comicSave.id === comic.id);
+
+    if (hasComic) {
+      //   toast.warn("Este filme ja foi salvo")
+      return;
+    }
+
+    comicSaves.push(comic);
+    localStorage.setItem("cart", JSON.stringify(comicSaves));
+    //toast.success("filme salvo com sucesso!")
   };
 
   const [isTruncated, setIsTruncated] = useState(true);

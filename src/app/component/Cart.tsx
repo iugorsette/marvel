@@ -1,25 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useComicById } from "../services/comics";
 import { CardPayment } from "./card/CardPayment";
 
 export function Cart() {
-  const comicIds = [5, 10, 15]; // IDs dos quadrinhos desejados
-
-  const [comics, setComics] = useState(
-    comicIds.map((id) => ({ id, quantity: 1 }))
-  );
+  const [comics, setComics] = useState([]);
 
   const totalItems = comics.length;
 
   const calculateTotalValue = () => {
+    let quantity = 1;
     let total = 0;
     comics.forEach((comic) => {
-      const { id, quantity } = comic;
-      const comicData = useComicById(id);
-
-      if (comicData && comicData.prices && comicData.prices.length > 0) {
-        total += comicData.prices[0].price * quantity;
-      }
+        total += comic.prices[0].price * quantity;
     });
     return total.toFixed(2);
   };
@@ -33,8 +25,19 @@ export function Cart() {
   };
 
   const handleRemoveComic = (id: number) => {
-    setComics((prevComics) => prevComics.filter((comic) => comic.id !== id));
+    let cartComicList = comics.filter((item) => {
+      return item.id !== id;
+    });
+
+    setComics(cartComicList);
+    localStorage.setItem("cart", JSON.stringify(cartComicList));
+    // toast.success("Filme removido com sucesso!");
   };
+
+  useEffect(() => {
+    const comicList = localStorage.getItem("cart");
+    setComics(JSON.parse(comicList) || []);
+  }, []);
 
   return (
     <div className="bg-zinc-800 p-4">
@@ -46,19 +49,17 @@ export function Cart() {
           {comics.length > 0 ? (
             <>
               {comics.map((comic) => {
-                const comicData = useComicById(comic.id);
-
-                return comicData ? (
+                return (
                   <CardPayment
                     key={comic.id}
-                    comic={comicData}
+                    comic={comic}
                     quantity={comic.quantity}
                     onQuantityChange={(quantity: number) =>
                       handleQuantityChange(comic.id, quantity)
                     }
                     onRemove={() => handleRemoveComic(comic.id)}
                   />
-                ) : null;
+                );
               })}
               <p className="text-right mt-4">
                 Total: R$ {calculateTotalValue()}
