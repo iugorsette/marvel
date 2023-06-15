@@ -1,6 +1,6 @@
 "use client";
-import { EventCarousel } from "./component/Carrosel";
-import { Navbar } from "./component/Navbar";
+import { EventCarousel } from "./components/Carrosel";
+import { Navbar } from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

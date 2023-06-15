@@ -66,7 +66,7 @@ export function CardComic(comic: IComic) {
           <p className="text-2xl text-zinc-300">GRÁTIS</p>
         ) : (
           <p className="text-zinc-300">
-            {`R$:`}
+            {`$:`}
             <span className="text-zinc-300 text-2xl">{arrayprice[0]}</span>
             {"," + arrayprice[1]}
           </p>

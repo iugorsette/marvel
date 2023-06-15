@@ -4,14 +4,14 @@ import { toast } from "react-toastify";
 
 export function Cart() {
   const [comics, setComics] = useState([]);
+  const [quantity, setQuantity] = useState(1);
 
   const totalItems = comics.length;
 
   const calculateTotalValue = () => {
-    let quantity = 1;
     let total = 0;
     comics.forEach((comic) => {
-        total += comic.prices[0].price * quantity;
+      total += comic.prices[0].price * quantity;
     });
     return total.toFixed(2);
   };
@@ -25,27 +25,29 @@ export function Cart() {
   };
 
   const handleRemoveComic = (id: number) => {
-    let cartComicList = comics.filter((item) => {
-      return item.id !== id;
+    let cartComicList = comics.filter((comic: IComic) => {
+      return comic.id !== id;
     });
 
     setComics(cartComicList);
     localStorage.setItem("cart", JSON.stringify(cartComicList));
-    toast.success("Comic was removed to cart!");
+    toast.success("Comic was removed from cart!");
   };
 
   useEffect(() => {
-    const comicList = localStorage.getItem("cart");
-    setComics(JSON.parse(comicList) || []);
+    const comicList: string | null = localStorage.getItem("cart");
+    if (comicList) {
+      setComics(JSON.parse(comicList) || []);
+    }
   }, []);
 
   return (
-    <div className="bg-zinc-800 p-4">
+    <div className="bg-gradient-to-b from-zinc-800 to-zinc-700 p-4" >
       <h1 className="text-center text-3xl text-red-700 font-bold mb-8">
         Cart ({totalItems} items)
       </h1>
       <div className="flex justify-center">
-        <div className="bg-white rounded-lg p-4 shadow-md">
+        <div className="bg-zinc-800 rounded-lg p-4 shadow-md">
           {comics.length > 0 ? (
             <>
               {comics.map((comic) => {
@@ -53,7 +55,7 @@ export function Cart() {
                   <CardPayment
                     key={comic.id}
                     comic={comic}
-                    quantity={comic.quantity}
+                    quantity={quantity}
                     onQuantityChange={(quantity: number) =>
                       handleQuantityChange(comic.id, quantity)
                     }
@@ -61,11 +63,11 @@ export function Cart() {
                   />
                 );
               })}
-              <p className="text-right mt-4">
-                Total: R$ {calculateTotalValue()}
+              <p className="text-zinc-100 text-right text-2xl font-bold mt-4">
+                Cart Total $:{calculateTotalValue()}
               </p>
-              <button className="mt-4 w-full bg-red-800 text-white py-2 px-4 rounded-md hover:bg-red-900">
-                Finalizar Compra
+              <button className="mt-4 w-full bg-red-800 text-zinc-100 py-2 px-4 rounded-md hover:bg-red-900">
+                Checkout
               </button>
             </>
           ) : (

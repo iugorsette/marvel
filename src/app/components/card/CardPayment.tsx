@@ -35,7 +35,7 @@ export function CardPayment({
   const formattedTotalPrice = totalPrice.toFixed(2);
 
   return (
-    <div key={comic.id} className="bg-white rounded-lg shadow-md flex h-48 w-full ">
+    <div key={comic.id} className="bg-zinc-200 rounded-lg shadow-md flex h-48 w-full my-2 ">
       <div className="">
         <Image
           className="rounded-l-md object-fill"
@@ -51,10 +51,10 @@ export function CardPayment({
             {comic.title}
           </h3>
           {price === 0 ? (
-            <p className="text-lg text-gray-900">GRÁTIS</p>
+            <p className="text-lg text-gray-900 flex justify-end ">GRÁTIS</p>
           ) : (
-            <p className="text-gray-900">
-              {`R$ ${formattedTotalPrice}`}
+            <p className="text-2xl font-semibold text-gray-900 flex justify-end">
+              {`$:${formattedTotalPrice}`}
             </p>
           )}
         </div>
