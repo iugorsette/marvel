@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import fetch from "isomorphic-fetch";
 import { MD5 } from "crypto-js";
+import { off } from "process";
 
 export const Comics = (cardPerPage: number, offset: number = 1) => {
   const [comics, setComics] = useState<IComic[]>([]);
@@ -24,7 +25,7 @@ export const Comics = (cardPerPage: number, offset: number = 1) => {
     };
 
     fetchComics();
-  }, []);
+  }, [offset, cardPerPage]);
 
   return comics;
 };

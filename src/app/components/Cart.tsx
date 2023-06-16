@@ -11,7 +11,10 @@ export function Cart() {
   const calculateTotalValue = () => {
     let total = 0;
     comics.forEach((comic) => {
-      total += comic.prices[0].price * comic.quantity;
+      let price = comic.prices[0].price;
+      if (price) {
+        total += price * comic.quantity;
+      }
     });
     return total.toFixed(2);
   };
