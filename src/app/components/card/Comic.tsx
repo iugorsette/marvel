@@ -60,12 +60,26 @@ export function CardComic(comic: IComic) {
           {truncatedDescription}
           {description.length > maxChars && (
             <button
-              className="text-zinc-300 underline pl-1 w-32"
+              className="text-zinc-300 underline pl-1 w-32 hover:text-red-800"
               onClick={toggleTruncate}
             >
-              {isTruncated ? "Ver mais" : "Ver menos"}
+              {isTruncated ? "show more" : "summarize"}
             </button>
           )}
+        </p>
+        <p>
+          {comic.characters.items.map((item: IComicSummary, key: number) => {
+            return (
+              <ul key={key}>
+                <li>
+                  {" "}
+                  <a className="text-zinc-400 text-sm" href={item.resourceURI}>
+                    {item.name}{" "}
+                  </a>
+                </li>
+              </ul>
+            );
+          })}
         </p>
         {price === 0 ? (
           <p className="text-2xl text-zinc-300">GRÁTIS</p>

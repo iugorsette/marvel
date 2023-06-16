@@ -78,14 +78,14 @@ export function CardPayment({
         <div className="flex justify-between">
           <div className="flex items-center">
             <button
-              className="w-8 h-8 rounded-full text-gray-900 bg-gray-200 flex justify-center items-center"
+              className="w-6 h-6 rounded-full text-zinc-200 bg-zinc-800 flex justify-center items-center active:bg-red-700"
               onClick={handleDecreaseQuantity}
             >
               -
             </button>
-            <p className="text-gray-900 mx-2">{comic.quantity}</p>
+            <p className="text-zinc-900 mx-2">{comic.quantity}</p>
             <button
-              className="w-8 h-8 rounded-full text-gray-900 bg-gray-200 flex justify-center items-center"
+              className="w-6 h-6 rounded-full text-zinc-200  bg-zinc-800 flex justify-center items-center active:bg-green-700"
               onClick={handleIncreaseQuantity}
             >
               +
