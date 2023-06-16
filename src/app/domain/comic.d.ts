@@ -11,8 +11,10 @@ interface IComic {
     path: string;
     extension: string;
   }>;
-  prices: any[];
+  prices: [
+    props: {
+      price: number;
+    }
+  ];
   quantity: number;
 }
-
-
