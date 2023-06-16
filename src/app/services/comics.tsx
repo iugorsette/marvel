@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import fetch from "isomorphic-fetch";
 import { MD5 } from "crypto-js";
-import { off } from "process";
 
 export const Comics = (cardPerPage: number, offset: number = 1) => {
   const [comics, setComics] = useState<IComic[]>([]);
@@ -9,8 +8,8 @@ export const Comics = (cardPerPage: number, offset: number = 1) => {
   useEffect(() => {
     const fetchComics = async () => {
       try {
-        const publicKey = "458c161524b046cd73f5f776e923ec64";
-        const privateKey = "d566366ff7e77a690341d0ed8ad3e459009b5c83";
+        const publicKey = process.env.PUBLIC_KEY
+        const privateKey = process.env.PRIVATE_KEY
         const timestamp = new Date().getTime().toString();
         const hash = MD5(timestamp + privateKey + publicKey);
         const url = `https://gateway.marvel.com/v1/public/comics?apikey=${publicKey}&ts=${timestamp}&hash=${hash}&limit=${cardPerPage*5}&orderBy=-issueNumber&offset=${offset}`;
