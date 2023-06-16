@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import { MD5 } from 'crypto-js';
 
 export const Events = () => {
-  const [events, setEvents] = useState<IEvents[]>([]);
+  const [events, setEvents] = useState<IEvent[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
