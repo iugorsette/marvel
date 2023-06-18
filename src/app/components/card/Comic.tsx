@@ -3,8 +3,6 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 
 export function CardComic(comic: IComic) {
-  const [cart, setCart] = useState(new Set());
-
   const handleAddToCart = () => {
     const comicList: any = localStorage.getItem("cart");
     let comicSaves = JSON.parse(comicList) || [];
@@ -85,7 +83,7 @@ export function CardComic(comic: IComic) {
           <p className="text-2xl text-zinc-300">GRÁTIS</p>
         ) : (
           <p className="text-zinc-300">
-            {`$:`}
+            {`$`}
             <span className="text-zinc-300 text-2xl">{arrayprice[0]}</span>
             {"," + arrayprice[1]}
           </p>

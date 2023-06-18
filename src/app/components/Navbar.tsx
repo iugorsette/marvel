@@ -13,7 +13,7 @@ export function Navbar() {
     {
       id: "comics",
       label: "Comics",
-      component: <MarvelComics cardPerPage={20} offset={0} />,
+      component: <MarvelComics cardPerPage={10} offset={0} />,
     },
     { id: "character", label: "Character", component: <MarvelCharacters /> },
     { id: "cart", label: "Cart", component: <Cart /> },

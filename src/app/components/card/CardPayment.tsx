@@ -71,7 +71,7 @@ export function CardPayment({
             <p className="text-lg text-gray-900 flex justify-end ">GRÁTIS</p>
           ) : (
             <p className="text-2xl font-semibold text-gray-900 flex justify-end">
-              {`$:${formattedTotalPrice}`}
+              {`$${formattedTotalPrice}`}
             </p>
           )}
         </div>

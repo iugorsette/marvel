@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 
 export function Cart() {
   const [comics, setComics] = useState<IComic[]>([]);
-  const [quantity, setQuantity] = useState(1);
-
   const totalItems = comics.length;
 
   const calculateTotalValue = () => {
@@ -66,7 +64,7 @@ export function Cart() {
               ))}
 
               <p className="text-zinc-100 text-right text-2xl font-bold mt-4">
-                Cart Total $:{calculateTotalValue()}
+                Cart Total ${calculateTotalValue()}
               </p>
               <button className="mt-4 w-full bg-red-800 text-zinc-100 py-2 px-4 rounded-md hover:bg-red-900">
                 Checkout
